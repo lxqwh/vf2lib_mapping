@@ -70,14 +70,14 @@ void getData(ARGEdit &ed,int count)
 bool graph_visitor(int n, node_id ni1[], node_id ni2[], void *usr_data)
 {
 	/*************** VFLib文档中的示例代码,匹配对储存在ni1和ni2中 **************/
-	//FILE *f = (FILE *)usr_data;
-	////将统计到的匹配节点输出到文件中
-	//fprintf(f,"n:%d",n); 
-	//fprintf(f, "\n");
-	//for (int i = 0; i < n; i++)
-	//	fprintf(f,"(%hd,%hd)",ni1[i],ni2[i]);
+	FILE *f = (FILE *)usr_data;
+	//将统计到的匹配节点输出到文件中
+	fprintf(f,"n:%d",n); 
+	fprintf(f, "\n");
+	for (int i = 0; i < n; i++)
+		fprintf(f,"(%hd,%hd)",ni1[i],ni2[i]);
 
-	//fprintf(f,"\n");
+	fprintf(f,"\n");
 	/*************** VFLib文档中的示例代码,匹配对储存在ni1和ni2中 **************/
 
 	matchingCnt++; //我只需要得到匹配的数量
@@ -113,11 +113,12 @@ int main()
 	//创建输出文件
 	FILE *f = fopen("subIso.txt","w");
 
-	match(&s0,graph_visitor,f);
+	int a = match(&s0,graph_visitor,f);
 
-	//fprintf(f, "n: %d", matchingCnt);//将找到的匹配数输出至文本
+	fprintf(f, "n: %d", matchingCnt);//将找到的匹配数输出至文本
 
 	cout << matchingCnt << endl;
+	cout <<"a: "<<a<<endl;
 
 	fclose(f);
 
