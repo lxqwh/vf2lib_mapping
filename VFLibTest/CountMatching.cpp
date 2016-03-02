@@ -1,4 +1,4 @@
-ï»¿#include "argraph.h"
+ #include "argraph.h"
 #include "argedit.h"
 #include "match.h"
 #include "vf2_sub_state.h"
@@ -8,19 +8,19 @@
 #include <fstream>
 #include <string>
 
-//æ·»åŠ èŠ‚ç‚¹è§’è‰²çš„å±æ€§
+//Ìí¼Ó½Úµã½ÇÉ«µÄÊôĞÔ
 #include "Role.h"
 
 using namespace std;
 
 #define MAXNODES 60000
 
-int matchingCnt = 0;//è®°å½•å‘ç°çš„åŒ¹é…æ•°
+int matchingCnt = 0;//¼ÇÂ¼·¢ÏÖµÄÆ¥ÅäÊı
 
 void getNodeEdge(ARGEdit &ed,string nodeName,string edgeName)
 {
-	/******************************è·å–èŠ‚ç‚¹************************************/
-	//ä»æ–‡ä»¶è¯»å–èŠ‚ç‚¹ï¼ŒèŠ‚ç‚¹æ–‡ä»¶ä¸€è¡Œæ˜¯èŠ‚ç‚¹ID+" "+è¯¥èŠ‚ç‚¹çš„è§’è‰²ID
+	/******************************»ñÈ¡½Úµã************************************/
+	//´ÓÎÄ¼ş¶ÁÈ¡½Úµã£¬½ÚµãÎÄ¼şÒ»ĞĞÊÇ½ÚµãID+" "+¸Ã½ÚµãµÄ½ÇÉ«ID
 	ifstream nodeFile(nodeName);
 	int nodeID, role;
 
@@ -34,8 +34,8 @@ void getNodeEdge(ARGEdit &ed,string nodeName,string edgeName)
 
 	nodeFile.close();
 
-	/******************************è·å–è¾¹************************************/
-	//ä»æ–‡ä»¶è¯»å–è¾¹ï¼Œè¾¹æ–‡ä»¶ä¸€è¡Œæ˜¯èµ·å§‹èŠ‚ç‚¹ID+" "+ç›®æ ‡èŠ‚ç‚¹ID
+	/******************************»ñÈ¡±ß************************************/
+	//´ÓÎÄ¼ş¶ÁÈ¡±ß£¬±ßÎÄ¼şÒ»ĞĞÊÇÆğÊ¼½ÚµãID+" "+Ä¿±ê½ÚµãID
 	ifstream edgeFile(edgeName);
 	int start,end;
 	//cout << edgeName << endl;
@@ -45,7 +45,7 @@ void getNodeEdge(ARGEdit &ed,string nodeName,string edgeName)
 		edgeFile >> start >> end;
 		//cout << start << " " << startRole << " " << end << " " << endRole << endl;
 
-		//åˆ›å»ºè¾¹
+		//´´½¨±ß
 		ed.InsertEdge(start, end, NULL);
 	}
 	
@@ -69,26 +69,26 @@ void getData(ARGEdit &ed,int count)
 
 bool graph_visitor(int n, node_id ni1[], node_id ni2[], void *usr_data)
 {
-	/*************** VFLibæ–‡æ¡£ä¸­çš„ç¤ºä¾‹ä»£ç ,åŒ¹é…å¯¹å‚¨å­˜åœ¨ni1å’Œni2ä¸­ **************/
+	/*************** VFLibÎÄµµÖĞµÄÊ¾Àı´úÂë,Æ¥Åä¶Ô´¢´æÔÚni1ºÍni2ÖĞ **************/
 	FILE *f = (FILE *)usr_data;
-	//å°†ç»Ÿè®¡åˆ°çš„åŒ¹é…èŠ‚ç‚¹è¾“å‡ºåˆ°æ–‡ä»¶ä¸­
+	//½«Í³¼Æµ½µÄÆ¥Åä½ÚµãÊä³öµ½ÎÄ¼şÖĞ
 	fprintf(f,"n:%d",n); 
 	fprintf(f, "\n");
 	for (int i = 0; i < n; i++)
 		fprintf(f,"(%hd,%hd)",ni1[i],ni2[i]);
 
 	fprintf(f,"\n");
-	/*************** VFLibæ–‡æ¡£ä¸­çš„ç¤ºä¾‹ä»£ç ,åŒ¹é…å¯¹å‚¨å­˜åœ¨ni1å’Œni2ä¸­ **************/
+	/*************** VFLibÎÄµµÖĞµÄÊ¾Àı´úÂë,Æ¥Åä¶Ô´¢´æÔÚni1ºÍni2ÖĞ **************/
 
-	matchingCnt++; //æˆ‘åªéœ€è¦å¾—åˆ°åŒ¹é…çš„æ•°é‡
+	matchingCnt++; //ÎÒÖ»ĞèÒªµÃµ½Æ¥ÅäµÄÊıÁ¿
 	cout << matchingCnt << endl;
-	//è¿”å›falseç”¨äºæœç´¢ä¸‹ä¸€ä¸ªåŒ¹é…
+	//·µ»ØfalseÓÃÓÚËÑË÷ÏÂÒ»¸öÆ¥Åä
 	return false;
 }
 
 int main()
 {
-	//åˆ›å»ºæ¨¡å¼å›¾å’Œæ•°æ®å›¾çš„ed
+	//´´½¨Ä£Ê½Í¼ºÍÊı¾İÍ¼µÄed
 	ARGEdit pattern_ed,data_ed;
 
 	getNodeEdge(pattern_ed,"patternNode.txt","patternEdge.txt");
@@ -99,23 +99,23 @@ int main()
 	ARGraph<Role, void> data_g(&data_ed);
 	ARGraph<Role, void> pattern_g(&pattern_ed);
 
-	//è®¾ç½®å±æ€§æ¸…é™¤å™¨
+	//ÉèÖÃÊôĞÔÇå³ıÆ÷
 	data_g.SetNodeDestroyer(new RoleDestroyer());
 	pattern_g.SetNodeDestroyer(new RoleDestroyer());
 
-	//è®¾ç½®å±æ€§æ¯”è¾ƒå™¨
+	//ÉèÖÃÊôĞÔ±È½ÏÆ÷
 	data_g.SetNodeComparator(new RoleComparator());
 	pattern_g.SetNodeComparator(new RoleComparator());
 
-	//åˆ›å»ºå­å›¾å¼‚æ„çš„åˆå§‹çŠ¶æ€
+	//´´½¨×ÓÍ¼Òì¹¹µÄ³õÊ¼×´Ì¬
 	VFSubState s0(&pattern_g, &data_g);
 
-	//åˆ›å»ºè¾“å‡ºæ–‡ä»¶
+	//´´½¨Êä³öÎÄ¼ş
 	FILE *f = fopen("subIso.txt","w");
 
 	int a = match(&s0,graph_visitor,f);
 
-	fprintf(f, "n: %d", matchingCnt);//å°†æ‰¾åˆ°çš„åŒ¹é…æ•°è¾“å‡ºè‡³æ–‡æœ¬
+	fprintf(f, "n: %d", matchingCnt);//½«ÕÒµ½µÄÆ¥ÅäÊıÊä³öÖÁÎÄ±¾
 
 	cout << matchingCnt << endl;
 	cout <<"a: "<<a<<endl;

@@ -54,7 +54,7 @@
  * disabled by ensuring the macro NDEBUG is defined during 
  * compilation.
  *
- * NOTE: Differently from the previous versions  of this library 
+ * NOTE: Differently from the previous versions of this library 
  * (before version 2.0), there is no more an adjacency matrix to 
  * check for the existence of a node.
  --------------------------------------------------------------------*/
